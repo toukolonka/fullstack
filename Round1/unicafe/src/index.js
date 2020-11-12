@@ -5,7 +5,7 @@ import "./index.css";
 const Statistics = ({ good, neutral, bad }) => {
   const all = good + neutral + bad;
   const average = (good - bad) / all;
-  const positive = good / all;
+  const positive = (100 * good / all).toString() + " %";
 
   if (all === 0) {
     return <p>No feedback given</p>;
