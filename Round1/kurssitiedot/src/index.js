@@ -8,22 +8,20 @@ const Header = (props) => {
 
 const Part = (props) => {
   return (
-    <div>
       <p>
-        {props.course.parts[0].name} {props.course.parts[0].exercises}
+        {props.part.name} {props.part.exercises}
       </p>
-      <p>
-        {props.course.parts[1].name} {props.course.parts[1].exercises}
-      </p>
-      <p>
-        {props.course.parts[2].name} {props.course.parts[2].exercises}
-      </p>
-    </div>
   );
 };
 
 const Content = (props) => {
-  return <Part course={props.course} />;
+  return (
+    <div>
+      <Part part={props.course.parts[0]} />
+      <Part part={props.course.parts[1]} />
+      <Part part={props.course.parts[2]} />
+    </div>
+  );
 };
 
 const Total = (props) => {
@@ -37,7 +35,7 @@ const Total = (props) => {
   );
 };
 
-function App() {
+const App = () => {
   const course = {
     name: "Half Stack application development",
     parts: [
