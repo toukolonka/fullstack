@@ -1,7 +1,7 @@
 import React from "react";
 import Person from './Person';
 
-const Persons = ({ persons }) => {
+const Persons = ({ persons, handledelete }) => {
   return (
     <div>
       {persons.map((person) => (
@@ -9,6 +9,7 @@ const Persons = ({ persons }) => {
           key={person.name}
           name={person.name}
           number={person.number}
+          handledelete={handledelete}
         ></Person>
       ))}
     </div>
