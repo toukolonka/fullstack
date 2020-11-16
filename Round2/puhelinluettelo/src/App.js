@@ -3,12 +3,15 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Person from "./components/Person";
 import personService from "./services/persons";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [checkName, setCheckName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [message, setMessage] = useState(null);
+  const [errBit, setErrBit] = useState(0);
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
@@ -38,11 +41,22 @@ const App = () => {
             );
             setNewName("");
             setNewNumber("");
+            setErrBit(0);
+            setMessage(
+              `Number of ${returnedPerson.name} changed`
+            )
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
           })
           .catch((error) => {
-            alert(
-              `the person '${person.name}' was already deleted from server`
-            );
+            setErrBit(1);
+            setMessage(
+              `Person '${person.name}' was already removed from server`
+            )
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
             setPersons(persons.filter((n) => n.id !== id));
           });
       }
@@ -56,14 +70,29 @@ const App = () => {
         setPersons(persons.concat(returnedPerson));
         setNewName("");
         setNewNumber("");
+        setErrBit(0);
+        setMessage(
+          `Added ${returnedPerson.name}`
+        )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       });
     }
   };
 
   const deletePerson = (person) => {
+    const name = person.name;
     if (window.confirm(`Delete ${person.name}?`)) {
       personService.deleteObject(person.id);
       setPersons(persons.filter((p) => p.id !== person.id));
+      setErrBit(0);
+      setMessage(
+        `Deleted ${name}`
+      )
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     }
   };
 
@@ -86,6 +115,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} error={errBit} />
       <Filter checkName={checkName} checkChange={handleCheckChange} />
       <h2>Add a new</h2>
       <PersonForm
