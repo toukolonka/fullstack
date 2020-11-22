@@ -42,21 +42,19 @@ const App = () => {
             setNewName("");
             setNewNumber("");
             setErrBit(0);
-            setMessage(
-              `Number of ${returnedPerson.name} changed`
-            )
+            setMessage(`Number of ${returnedPerson.name} changed`);
             setTimeout(() => {
-              setMessage(null)
-            }, 5000)
+              setMessage(null);
+            }, 5000);
           })
           .catch((error) => {
             setErrBit(1);
             setMessage(
               `Person '${person.name}' was already removed from server`
-            )
+            );
             setTimeout(() => {
-              setMessage(null)
-            }, 5000)
+              setMessage(null);
+            }, 5000);
             setPersons(persons.filter((n) => n.id !== id));
           });
       }
@@ -66,18 +64,25 @@ const App = () => {
         number: newNumber,
       };
 
-      personService.create(personObject).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
-        setNewName("");
-        setNewNumber("");
-        setErrBit(0);
-        setMessage(
-          `Added ${returnedPerson.name}`
-        )
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
-      });
+      personService
+        .create(personObject)
+        .then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson));
+          setNewName("");
+          setNewNumber("");
+          setErrBit(0);
+          setMessage(`Added ${returnedPerson.name}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setErrBit(1);
+          setMessage(error.response.data.error);
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        });
     }
   };
 
@@ -87,12 +92,10 @@ const App = () => {
       personService.deleteObject(person.id);
       setPersons(persons.filter((p) => p.id !== person.id));
       setErrBit(0);
-      setMessage(
-        `Deleted ${name}`
-      )
+      setMessage(`Deleted ${name}`);
       setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+        setMessage(null);
+      }, 5000);
     }
   };
 
