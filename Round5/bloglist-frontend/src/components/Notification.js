@@ -18,7 +18,7 @@ const Notification = ({ message, errorMessage }) => {
   const msg = message === null ? errorMessage : message
 
   return (
-    <div style={messageStyle}>
+    <div style={messageStyle} className='notification'>
       {msg}
     </div>
   )

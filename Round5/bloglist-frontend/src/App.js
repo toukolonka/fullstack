@@ -44,7 +44,10 @@ const App = () => {
 
   const addLike = (id, blogObject) => {
     blogService.update(id, blogObject).then((returnedBlog) => {
-      setBlogs(blogs.map((blog) => (blog.id !== id ? blog : returnedBlog)))
+      const newLikes = returnedBlog.likes
+      const oldBlog = blogs.find(blog => blog.id === id)
+      const newBlog = { ...oldBlog, likes: newLikes }
+      setBlogs(blogs.map((blog) => (blog.id !== id ? blog : newBlog)))
     })
   }
 
@@ -110,7 +113,7 @@ const App = () => {
           <p>
             {user.name} logged in <button onClick={handleLogout}>Logout</button>
           </p>
-          <Togglable buttonLabel="New blog" ref={blogFormRef}>
+          <Togglable buttonLabel="New blog" ref={blogFormRef} id='newblog'>
             <BlogForm createBlog={addBlog} />
           </Togglable>
           <div>

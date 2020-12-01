@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 const Blog = ({ blog, createLike, removeBlog }) => {
   const [showAll, setShowAll] = useState(false)
-  const [user] = useState(blog.user.name)
+
+  console.log(blog.user.name)
 
   const blogStyle = {
     paddingTop: 10,
@@ -34,7 +35,7 @@ const Blog = ({ blog, createLike, removeBlog }) => {
       <div style={blogStyle} className='blog'>
         <div>
           {blog.title} {blog.author}
-          <button onClick={() => setShowAll(!showAll)}>view</button>
+          <button onClick={() => setShowAll(!showAll)} className='view-button'>view</button>
         </div>
       </div>
     )
@@ -50,11 +51,11 @@ const Blog = ({ blog, createLike, removeBlog }) => {
           </div>
           <div>{blog.url}</div>
           <div>
-            Likes {blog.likes}
-            <button onClick={likeBlog}>Like</button>
+            <span className='like-span'>Likes {blog.likes}</span>
+            <button onClick={likeBlog} id='like-button'>Like</button>
           </div>
-          <div>{user}</div>
-          <button onClick={deleteBlog}>Remove</button>
+          <div>{blog.user.name}</div>
+          <button onClick={deleteBlog} id='remove-button'>Remove</button>
         </div>
       </div>
     )
