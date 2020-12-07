@@ -1,0 +1,15 @@
+<div>
+        {user !== null ? (
+          <div>
+            <Link style={padding} to="/blogs">
+              Blogs
+            </Link>
+            <Link style={padding} to="/users">
+              Users
+            </Link>
+            {user.name} logged in <button onClick={handleLogout}>Logout</button>
+          </div>
+        ) : (
+          ''
+        )}
+      </div>

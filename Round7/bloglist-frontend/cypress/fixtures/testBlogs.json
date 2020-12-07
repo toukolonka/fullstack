@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Testiblogi",
+        "author": "Touko Lonka",
+        "url": "http",
+        "likes": 6
+    },
+    {
+        "title": "Toinen blogi",
+        "author": "Janne Koski",
+        "url": "http",
+        "likes": 3
+    },
+    {
+        "title": "Kolmas blogi",
+        "author": "Elias Hakala",
+        "url": "http",
+        "likes": 10
+    }
+]
